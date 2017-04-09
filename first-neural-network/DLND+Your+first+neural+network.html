@@ -12014,7 +12014,7 @@ div#notebook {
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x10e02a710&gt;</pre>
+<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x117f31be0&gt;</pre>
 </div>
 
 </div>
@@ -13441,7 +13441,7 @@ height=263
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[118]:</div>
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">NeuralNetwork</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -13505,10 +13505,10 @@ height=263
             <span class="c1"># TODO: Backpropagated error terms - Replace these values with your calculations.</span>
             <span class="n">output_error_term</span> <span class="o">=</span> <span class="n">error</span> <span class="c1">#* final_outputs * (1-final_outputs)</span>
             <span class="c1"># TODO: Calculate the hidden layer&#39;s contribution to the error</span>
-            <span class="n">hidden_error</span> <span class="o">=</span> <span class="n">output_error_term</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">weights_hidden_to_output</span>
-            <span class="n">hidden_error</span> <span class="o">=</span> <span class="n">hidden_error</span><span class="o">.</span><span class="n">T</span>
+            <span class="n">hidden_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">output_error_term</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weights_hidden_to_output</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
             <span class="n">hidden_error_term</span> <span class="o">=</span> <span class="n">hidden_error</span> <span class="o">*</span> <span class="n">hidden_outputs</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">hidden_outputs</span><span class="p">)</span>
-
+            <span class="c1">#print(hidden_error, hidden_outputs, hidden_error_term)</span>
+            
             <span class="c1"># Weight step (input to hidden)</span>
             <span class="n">delta_weights_i_h</span> <span class="o">+=</span> <span class="n">hidden_error_term</span> <span class="o">*</span> <span class="n">X</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
             <span class="c1"># Weight step (hidden to output)</span>
@@ -13545,7 +13545,7 @@ height=263
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[119]:</div>
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">MSE</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
@@ -13569,7 +13569,7 @@ height=263
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[120]:</div>
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">unittest</span>
@@ -13644,14 +13644,14 @@ height=263
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>.....
 ----------------------------------------------------------------------
-Ran 5 tests in 0.006s
+Ran 5 tests in 0.005s
 
 OK
 </pre>
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[120]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[39]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
