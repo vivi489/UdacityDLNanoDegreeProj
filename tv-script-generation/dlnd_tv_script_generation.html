@@ -12382,10 +12382,9 @@ Barney_Gumble: Yeah, you should only drink to enhance your social skills.
     <span class="c1"># TODO: Implement Function</span>
     <span class="n">embedded</span> <span class="o">=</span> <span class="n">get_embed</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="n">vocab_size</span><span class="p">,</span> <span class="n">embed_dim</span><span class="p">)</span>
     <span class="n">lstm_outputs</span><span class="p">,</span> <span class="n">final_state</span> <span class="o">=</span> <span class="n">build_rnn</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">embedded</span><span class="p">)</span>
-    <span class="n">seq_output</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">lstm_outputs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="c1">#x = tf.reshape(seq_output, [-1, rnn_size])</span>
     
-    <span class="n">logits</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">contrib</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">fully_connected</span><span class="p">(</span><span class="n">seq_output</span><span class="p">,</span> <span class="n">vocab_size</span><span class="p">,</span> <span class="n">activation_fn</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">logits</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">contrib</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">fully_connected</span><span class="p">(</span><span class="n">lstm_outputs</span><span class="p">,</span> <span class="n">vocab_size</span><span class="p">,</span> <span class="n">activation_fn</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
     
     <span class="k">return</span> <span class="n">logits</span><span class="p">,</span> <span class="n">final_state</span>
 
@@ -12536,19 +12535,19 @@ Barney_Gumble: Yeah, you should only drink to enhance your social skills.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Number of Epochs</span>
-<span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">60</span>
 <span class="c1"># Batch Size</span>
-<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">16</span>
+<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">256</span>
 <span class="c1"># RNN Size</span>
-<span class="n">rnn_size</span> <span class="o">=</span> <span class="mi">64</span>
+<span class="n">rnn_size</span> <span class="o">=</span> <span class="mi">192</span>
 <span class="c1"># Embedding Dimension Size</span>
 <span class="n">embed_dim</span> <span class="o">=</span> <span class="mi">128</span>
 <span class="c1"># Sequence Length</span>
-<span class="n">seq_length</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">seq_length</span> <span class="o">=</span> <span class="mi">16</span>
 <span class="c1"># Learning Rate</span>
 <span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.01</span>
 <span class="c1"># Show stats for every n number of batches</span>
@@ -12577,7 +12576,7 @@ Barney_Gumble: Yeah, you should only drink to enhance your social skills.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
@@ -12628,7 +12627,7 @@ Barney_Gumble: Yeah, you should only drink to enhance your social skills.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
@@ -12674,114 +12673,16 @@ Barney_Gumble: Yeah, you should only drink to enhance your social skills.
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Epoch   0 Batch    0/539   train_loss = 8.821
-Epoch   0 Batch  100/539   train_loss = 6.489
-Epoch   0 Batch  200/539   train_loss = 6.422
-Epoch   0 Batch  300/539   train_loss = 5.897
-Epoch   0 Batch  400/539   train_loss = 5.488
-Epoch   0 Batch  500/539   train_loss = 5.640
-Epoch   1 Batch   61/539   train_loss = 5.041
-Epoch   1 Batch  161/539   train_loss = 4.523
-Epoch   1 Batch  261/539   train_loss = 4.584
-Epoch   1 Batch  361/539   train_loss = 4.551
-Epoch   1 Batch  461/539   train_loss = 4.812
-Epoch   2 Batch   22/539   train_loss = 4.585
-Epoch   2 Batch  122/539   train_loss = 4.348
-Epoch   2 Batch  222/539   train_loss = 4.741
-Epoch   2 Batch  322/539   train_loss = 4.603
-Epoch   2 Batch  422/539   train_loss = 4.366
-Epoch   2 Batch  522/539   train_loss = 4.139
-Epoch   3 Batch   83/539   train_loss = 4.595
-Epoch   3 Batch  183/539   train_loss = 4.366
-Epoch   3 Batch  283/539   train_loss = 4.177
-Epoch   3 Batch  383/539   train_loss = 4.230
-Epoch   3 Batch  483/539   train_loss = 4.672
-Epoch   4 Batch   44/539   train_loss = 4.355
-Epoch   4 Batch  144/539   train_loss = 4.529
-Epoch   4 Batch  244/539   train_loss = 4.215
-Epoch   4 Batch  344/539   train_loss = 3.788
-Epoch   4 Batch  444/539   train_loss = 3.838
-Epoch   5 Batch    5/539   train_loss = 3.873
-Epoch   5 Batch  105/539   train_loss = 3.947
-Epoch   5 Batch  205/539   train_loss = 3.966
-Epoch   5 Batch  305/539   train_loss = 4.224
-Epoch   5 Batch  405/539   train_loss = 3.656
-Epoch   5 Batch  505/539   train_loss = 3.756
-Epoch   6 Batch   66/539   train_loss = 4.122
-Epoch   6 Batch  166/539   train_loss = 3.931
-Epoch   6 Batch  266/539   train_loss = 3.732
-Epoch   6 Batch  366/539   train_loss = 4.232
-Epoch   6 Batch  466/539   train_loss = 3.904
-Epoch   7 Batch   27/539   train_loss = 3.244
-Epoch   7 Batch  127/539   train_loss = 4.166
-Epoch   7 Batch  227/539   train_loss = 3.798
-Epoch   7 Batch  327/539   train_loss = 3.556
-Epoch   7 Batch  427/539   train_loss = 3.684
-Epoch   7 Batch  527/539   train_loss = 3.668
-Epoch   8 Batch   88/539   train_loss = 4.048
-Epoch   8 Batch  188/539   train_loss = 4.061
-Epoch   8 Batch  288/539   train_loss = 3.889
-Epoch   8 Batch  388/539   train_loss = 3.286
-Epoch   8 Batch  488/539   train_loss = 3.865
-Epoch   9 Batch   49/539   train_loss = 3.934
-Epoch   9 Batch  149/539   train_loss = 3.724
-Epoch   9 Batch  249/539   train_loss = 3.894
-Epoch   9 Batch  349/539   train_loss = 3.480
-Epoch   9 Batch  449/539   train_loss = 3.228
-Epoch  10 Batch   10/539   train_loss = 3.689
-Epoch  10 Batch  110/539   train_loss = 3.493
-Epoch  10 Batch  210/539   train_loss = 3.450
-Epoch  10 Batch  310/539   train_loss = 3.305
-Epoch  10 Batch  410/539   train_loss = 3.509
-Epoch  10 Batch  510/539   train_loss = 3.288
-Epoch  11 Batch   71/539   train_loss = 3.818
-Epoch  11 Batch  171/539   train_loss = 3.588
-Epoch  11 Batch  271/539   train_loss = 3.302
-Epoch  11 Batch  371/539   train_loss = 3.460
-Epoch  11 Batch  471/539   train_loss = 3.447
-Epoch  12 Batch   32/539   train_loss = 2.925
-Epoch  12 Batch  132/539   train_loss = 3.613
-Epoch  12 Batch  232/539   train_loss = 3.458
-Epoch  12 Batch  332/539   train_loss = 3.456
-Epoch  12 Batch  432/539   train_loss = 3.405
-Epoch  12 Batch  532/539   train_loss = 3.413
-Epoch  13 Batch   93/539   train_loss = 3.511
-Epoch  13 Batch  193/539   train_loss = 3.207
-Epoch  13 Batch  293/539   train_loss = 3.236
-Epoch  13 Batch  393/539   train_loss = 3.388
-Epoch  13 Batch  493/539   train_loss = 3.122
-Epoch  14 Batch   54/539   train_loss = 3.206
-Epoch  14 Batch  154/539   train_loss = 2.844
-Epoch  14 Batch  254/539   train_loss = 3.358
-Epoch  14 Batch  354/539   train_loss = 3.042
-Epoch  14 Batch  454/539   train_loss = 2.893
-Epoch  15 Batch   15/539   train_loss = 2.938
-Epoch  15 Batch  115/539   train_loss = 2.961
-Epoch  15 Batch  215/539   train_loss = 3.196
-Epoch  15 Batch  315/539   train_loss = 2.859
-Epoch  15 Batch  415/539   train_loss = 3.006
-Epoch  15 Batch  515/539   train_loss = 3.202
-Epoch  16 Batch   76/539   train_loss = 2.595
-Epoch  16 Batch  176/539   train_loss = 3.543
-Epoch  16 Batch  276/539   train_loss = 3.253
-Epoch  16 Batch  376/539   train_loss = 3.152
-Epoch  16 Batch  476/539   train_loss = 3.387
-Epoch  17 Batch   37/539   train_loss = 2.983
-Epoch  17 Batch  137/539   train_loss = 2.969
-Epoch  17 Batch  237/539   train_loss = 3.325
-Epoch  17 Batch  337/539   train_loss = 3.023
-Epoch  17 Batch  437/539   train_loss = 2.758
-Epoch  17 Batch  537/539   train_loss = 2.934
-Epoch  18 Batch   98/539   train_loss = 2.930
-Epoch  18 Batch  198/539   train_loss = 2.806
-Epoch  18 Batch  298/539   train_loss = 2.678
-Epoch  18 Batch  398/539   train_loss = 2.867
-Epoch  18 Batch  498/539   train_loss = 3.288
-Epoch  19 Batch   59/539   train_loss = 2.818
-Epoch  19 Batch  159/539   train_loss = 3.096
-Epoch  19 Batch  259/539   train_loss = 2.844
-Epoch  19 Batch  359/539   train_loss = 2.983
-Epoch  19 Batch  459/539   train_loss = 2.573
+<pre>Epoch   0 Batch    0/16   train_loss = 8.822
+Epoch   6 Batch    4/16   train_loss = 5.241
+Epoch  12 Batch    8/16   train_loss = 4.484
+Epoch  18 Batch   12/16   train_loss = 3.802
+Epoch  25 Batch    0/16   train_loss = 3.027
+Epoch  31 Batch    4/16   train_loss = 2.535
+Epoch  37 Batch    8/16   train_loss = 1.956
+Epoch  43 Batch   12/16   train_loss = 1.427
+Epoch  50 Batch    0/16   train_loss = 1.252
+Epoch  56 Batch    4/16   train_loss = 0.971
 Model Trained and Saved
 </pre>
 </div>
@@ -12803,7 +12704,7 @@ Model Trained and Saved
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
@@ -12829,7 +12730,7 @@ Model Trained and Saved
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
@@ -12868,7 +12769,7 @@ Model Trained and Saved
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_tensors</span><span class="p">(</span><span class="n">loaded_graph</span><span class="p">):</span>
@@ -12919,7 +12820,7 @@ Model Trained and Saved
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">pick_word</span><span class="p">(</span><span class="n">probabilities</span><span class="p">,</span> <span class="n">int_to_vocab</span><span class="p">):</span>
@@ -13030,30 +12931,20 @@ Model Trained and Saved
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>INFO:tensorflow:Restoring parameters from ./save
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>INFO:tensorflow:Restoring parameters from ./save
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>moe_szyslak:(sternly) canyonero(to himself) i can&#39;t sell her.
-homer_simpson:(gasps) gr-aargh. / canyonero cocktail dallas / she left me and grains?
-moe_szyslak:(scornfully) hey, hey, i got a feeling to learn in the bathroom.
-moe_szyslak:(scornfully) hey, hey, i got a feeling to learn in the bathroom.
-moe_szyslak:(scornfully) hey, hey, i got a feeling to learn in the bathroom.
-moe_szyslak:(scornfully) hey, hey, i got a feeling to learn in the bathroom.
-moe_szyslak:(scornfully) hey, hey, i got a feeling to learn in the bathroom.
-moe_szyslak:(scornfully) hey, hey, i got a feeling to learn in the bathroom.
-moe_szyslak:(scornfully) hey, hey, i got a feeling to learn in the bathroom.
-moe_szyslak:(scornfully) hey, hey, i got a feeling to learn in the bathroom.
-moe_szyslak:(scornfully) hey, hey, i got a feeling to learn in the
+moe_szyslak:(as dentist) okay, this might hurt a little.(a little embarrassed) it&#39;s right, homer.
+moe_szyslak:(sobs) it&#39;s true, it&#39;s all losers.
+lenny_leonard:(to homer) carl, moe...
+moe_szyslak: hey, you didn&#39;t sacrifice my thesaurus.
+lisa_simpson: we need a lot of nerve nineteen of his kid about about i can buy the drug service.
+carl_carlson: i&#39;m going to keep drunk.
+dr. _zander:(while i&#39;ll buy your back on a guy to mean a car, homer.
+wally: i don&#39;t know...
+moe_szyslak: hey, i&#39;m sorry, but i guess.
+homer_simpson:(sunk) i thought you said this guy. i got a good shot, moe. i got a hot finding children&#39;s more...
+homer_simpson:(sobs) words hurt, hey, homer.
+homer_simpson:(puts) what?
+moe_szyslak: huh. the question is, i gotta get back to us.
+moe_szyslak: hey, hey, that sign is the way.
 </pre>
 </div>
 </div>
@@ -13072,6 +12963,19 @@ moe_szyslak:(scornfully) hey, hey, i got a feeling to learn in the
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
 </div>
     </div>
   </div>
